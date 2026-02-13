@@ -449,7 +449,11 @@
     <script type="text/babel">
       const { useState, useEffect, useRef, useCallback } = React;
 
-      // ✅ RUTAS CORREGIDAS (sin "/" inicial) para GitHub Pages + repo subpath
+      // ✅ RUTAS RELATIVAS: válidas para GitHub Pages + repo subpath
+      // Requiere:
+      // - public/assets/models/model-01.jpg ... model-16.jpg
+      // - public/assets/mockups/shelves-render.jpg
+      // - public/assets/mockups/luna-noire-model.jpg
       const MODELS = Array.from({ length: 16 }, (_, i) => ({
         id: String(i + 1).padStart(2, "0"),
         src: `public/assets/models/model-${String(i + 1).padStart(2, "0")}.jpg`,
@@ -480,7 +484,9 @@
             },
             { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
           );
-          document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+          document
+            .querySelectorAll(".reveal")
+            .forEach((el) => observer.observe(el));
           return () => observer.disconnect();
         }, []);
       };
@@ -492,8 +498,14 @@
           aria-label="Main navigation"
         >
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3 reveal" style={{ "--d": "0ms" }}>
-              <span className="crosshair-icon text-inkBlack" aria-hidden="true" />
+            <div
+              className="flex items-center gap-3 reveal"
+              style={{ "--d": "0ms" }}
+            >
+              <span
+                className="crosshair-icon text-inkBlack"
+                aria-hidden="true"
+              />
               <a
                 href="#shop"
                 className="nav-link on-dark font-ui text-xs font-medium tracking-[0.2em] uppercase text-inkBlack"
@@ -519,7 +531,12 @@
         </nav>
       );
 
-      const ThumbnailRail = ({ activeFrontIndex, onSelect, autoplayEnabled, onToggleAutoplay }) => {
+      const ThumbnailRail = ({
+        activeFrontIndex,
+        onSelect,
+        autoplayEnabled,
+        onToggleAutoplay,
+      }) => {
         const handleSelect = (index) => onSelect(index);
         const handleKeyDown = (e, index) => {
           if (e.key === "Enter" || e.key === " ") {
@@ -529,21 +546,35 @@
         };
 
         useEffect(() => {
-          const activeThumb = document.querySelector(`[data-thumb-index="${activeFrontIndex}"]`);
-          if (activeThumb) activeThumb.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+          const activeThumb = document.querySelector(
+            `[data-thumb-index="${activeFrontIndex}"]`
+          );
+          if (activeThumb)
+            activeThumb.scrollIntoView({
+              behavior: "smooth",
+              inline: "center",
+              block: "nearest",
+            });
         }, [activeFrontIndex]);
 
         return (
-          <div className="w-full px-4 md:px-8 pb-4 reveal" style={{ "--d": "400ms" }}>
+          <div
+            className="w-full px-4 md:px-8 pb-4 reveal"
+            style={{ "--d": "400ms" }}
+          >
             <div className="flex items-center justify-between mb-2">
               <span className="font-ui text-[10px] text-black/40 tracking-wider uppercase">
                 Selecciona un look
               </span>
               {!reduceMotion && (
                 <button
-                  className={`autoplay-btn on-dark ${autoplayEnabled ? "is-playing" : ""}`}
+                  className={`autoplay-btn on-dark ${
+                    autoplayEnabled ? "is-playing" : ""
+                  }`}
                   onClick={onToggleAutoplay}
-                  aria-label={autoplayEnabled ? "Pausar presentación" : "Iniciar presentación"}
+                  aria-label={
+                    autoplayEnabled ? "Pausar presentación" : "Iniciar presentación"
+                  }
                   title={autoplayEnabled ? "Pausar" : "Reproducir"}
                 >
                   {autoplayEnabled ? "⏸" : "▶"}
@@ -553,7 +584,10 @@
 
             <div
               className="thumbnail-rail flex gap-3 overflow-x-auto py-4"
-              style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch" }}
+              style={{
+                scrollSnapType: "x mandatory",
+                WebkitOverflowScrolling: "touch",
+              }}
               role="region"
               aria-label="Model thumbnail gallery"
             >
@@ -609,7 +643,12 @@
         const railRef = useRef(null);
 
         useEffect(() => {
-          if (hasGSAP && !reduceMotion && cardFrontRef.current && cardBackRef.current) {
+          if (
+            hasGSAP &&
+            !reduceMotion &&
+            cardFrontRef.current &&
+            cardBackRef.current
+          ) {
             const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
             tl.fromTo(
               cardBackRef.current,
@@ -647,7 +686,8 @@
             }
           };
           document.addEventListener("visibilitychange", handleVisibility);
-          return () => document.removeEventListener("visibilitychange", handleVisibility);
+          return () =>
+            document.removeEventListener("visibilitychange", handleVisibility);
         }, [isPlaying]);
 
         useEffect(() => {
@@ -689,16 +729,50 @@
             setIsSwapping(true);
 
             let newBackIndex = (newFrontIndex + 1) % MODELS.length;
-            if (newBackIndex === newFrontIndex) newBackIndex = (newFrontIndex + 2) % MODELS.length;
+            if (newBackIndex === newFrontIndex)
+              newBackIndex = (newFrontIndex + 2) % MODELS.length;
 
-            if (hasGSAP && !reduceMotion && imgFrontRef.current && imgBackRef.current) {
+            if (
+              hasGSAP &&
+              !reduceMotion &&
+              imgFrontRef.current &&
+              imgBackRef.current
+            ) {
               const tl = gsap.timeline({
                 onComplete: () => setIsSwapping(false),
               });
-              tl.to(imgFrontRef.current, { opacity: 0, y: 8, scale: 0.992, duration: 0.18, overwrite: "auto" }, 0)
-                .to(imgBackRef.current, { opacity: 0, y: 6, scale: 0.99, duration: 0.18, overwrite: "auto" }, 0)
-                .to(cardFrontRef.current, { x: -6, duration: 0.2, overwrite: "auto" }, 0)
-                .to(cardBackRef.current, { x: 6, duration: 0.2, overwrite: "auto" }, 0)
+              tl.to(
+                imgFrontRef.current,
+                {
+                  opacity: 0,
+                  y: 8,
+                  scale: 0.992,
+                  duration: 0.18,
+                  overwrite: "auto",
+                },
+                0
+              )
+                .to(
+                  imgBackRef.current,
+                  {
+                    opacity: 0,
+                    y: 6,
+                    scale: 0.99,
+                    duration: 0.18,
+                    overwrite: "auto",
+                  },
+                  0
+                )
+                .to(
+                  cardFrontRef.current,
+                  { x: -6, duration: 0.2, overwrite: "auto" },
+                  0
+                )
+                .to(
+                  cardBackRef.current,
+                  { x: 6, duration: 0.2, overwrite: "auto" },
+                  0
+                )
                 .add(() => {
                   setFrontIndex(newFrontIndex);
                   setBackIndex(newBackIndex);
@@ -706,16 +780,38 @@
                 .fromTo(
                   imgFrontRef.current,
                   { opacity: 0, x: -12, y: 10, scale: 0.99 },
-                  { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.42, overwrite: "auto" }
+                  {
+                    opacity: 1,
+                    x: 0,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.42,
+                    overwrite: "auto",
+                  }
                 )
                 .fromTo(
                   imgBackRef.current,
                   { opacity: 0, x: 14, y: 6, scale: 0.99 },
-                  { opacity: 0.92, x: 0, y: 0, scale: 1, duration: 0.42, overwrite: "auto" },
+                  {
+                    opacity: 0.92,
+                    x: 0,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.42,
+                    overwrite: "auto",
+                  },
                   "-=0.34"
                 )
-                .to(cardFrontRef.current, { x: 0, duration: 0.42, overwrite: "auto" }, "-=0.42")
-                .to(cardBackRef.current, { x: 0, duration: 0.42, overwrite: "auto" }, "-=0.42");
+                .to(
+                  cardFrontRef.current,
+                  { x: 0, duration: 0.42, overwrite: "auto" },
+                  "-=0.42"
+                )
+                .to(
+                  cardBackRef.current,
+                  { x: 0, duration: 0.42, overwrite: "auto" },
+                  "-=0.42"
+                );
             } else {
               setFrontIndex(newFrontIndex);
               setBackIndex(newBackIndex);
@@ -741,7 +837,8 @@
           setIsSwapping(true);
 
           let newBackIndex = (backIndex + 1) % MODELS.length;
-          while (newBackIndex === frontIndex) newBackIndex = (newBackIndex + 1) % MODELS.length;
+          while (newBackIndex === frontIndex)
+            newBackIndex = (newBackIndex + 1) % MODELS.length;
 
           if (hasGSAP && !reduceMotion && imgBackRef.current) {
             gsap.to(imgBackRef.current, {
@@ -755,7 +852,14 @@
                 gsap.fromTo(
                   imgBackRef.current,
                   { opacity: 0, x: 14, y: 6, scale: 0.99 },
-                  { opacity: 0.92, x: 0, y: 0, scale: 1, duration: 0.42, overwrite: "auto" }
+                  {
+                    opacity: 0.92,
+                    x: 0,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.42,
+                    overwrite: "auto",
+                  }
                 );
                 setIsSwapping(false);
               },
@@ -774,15 +878,50 @@
             cardFrontRef.current &&
             cardBackRef.current
           ) {
-            gsap.to(cardFrontRef.current, { y: -10, rotate: -0.6, scale: 1.012, duration: 0.45, ease: "power3.out", overwrite: "auto" });
-            gsap.to(cardBackRef.current, { y: 6, x: 10, rotate: 0.35, scale: 0.995, duration: 0.45, ease: "power3.out", overwrite: "auto" });
+            gsap.to(cardFrontRef.current, {
+              y: -10,
+              rotate: -0.6,
+              scale: 1.012,
+              duration: 0.45,
+              ease: "power3.out",
+              overwrite: "auto",
+            });
+            gsap.to(cardBackRef.current, {
+              y: 6,
+              x: 10,
+              rotate: 0.35,
+              scale: 0.995,
+              duration: 0.45,
+              ease: "power3.out",
+              overwrite: "auto",
+            });
           }
         }, []);
 
         const handleMouseLeave = useCallback(() => {
-          if (hasGSAP && !reduceMotion && cardFrontRef.current && cardBackRef.current) {
-            gsap.to(cardFrontRef.current, { y: 0, rotate: -2, scale: 1, duration: 0.45, ease: "power3.out", overwrite: "auto" });
-            gsap.to(cardBackRef.current, { y: 0, x: 0, rotate: 3, scale: 1, duration: 0.45, ease: "power3.out", overwrite: "auto" });
+          if (
+            hasGSAP &&
+            !reduceMotion &&
+            cardFrontRef.current &&
+            cardBackRef.current
+          ) {
+            gsap.to(cardFrontRef.current, {
+              y: 0,
+              rotate: -2,
+              scale: 1,
+              duration: 0.45,
+              ease: "power3.out",
+              overwrite: "auto",
+            });
+            gsap.to(cardBackRef.current, {
+              y: 0,
+              x: 0,
+              rotate: 3,
+              scale: 1,
+              duration: 0.45,
+              ease: "power3.out",
+              overwrite: "auto",
+            });
           }
         }, []);
 
@@ -798,14 +937,27 @@
             onFocus={handleMouseEnter}
             onBlur={handleMouseLeave}
           >
-            <button className="toggle-back-btn on-dark" onClick={handleToggleBack} aria-label="Cambiar imagen trasera">
+            <button
+              className="toggle-back-btn on-dark"
+              onClick={handleToggleBack}
+              aria-label="Cambiar imagen trasera"
+            >
               Cambiar trasera
             </button>
 
-            <div ref={titleRef} className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-1" aria-hidden="true">
+            <div
+              ref={titleRef}
+              className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-[1]"
+              aria-hidden="true"
+            >
               <h1
                 className="font-display text-inkBlack uppercase whitespace-nowrap"
-                style={{ fontSize: "clamp(6rem,25vw,18rem)", opacity: 0.9, letterSpacing: "-0.03em", lineHeight: 0.8 }}
+                style={{
+                  fontSize: "clamp(6rem,25vw,18rem)",
+                  opacity: 0.9,
+                  letterSpacing: "-0.03em",
+                  lineHeight: 0.8,
+                }}
               >
                 RENDER
               </h1>
@@ -813,11 +965,24 @@
 
             <div className="relative z-20 flex flex-col items-center justify-center flex-1 w-full px-4">
               <div className="flex items-center justify-center flex-1 py-20">
-                <div className="cards-container relative flex items-center justify-center" style={{ width: "clamp(280px, 80vw, 500px)", height: "clamp(360px, 55vh, 500px)" }}>
+                <div
+                  className="cards-container relative flex items-center justify-center"
+                  style={{
+                    width: "clamp(280px, 80vw, 500px)",
+                    height: "clamp(360px, 55vh, 500px)",
+                  }}
+                >
                   <div
                     ref={cardBackRef}
                     className="model-card absolute bg-white rounded-2xl shadow-xl border border-black/5 overflow-hidden"
-                    style={{ width: "clamp(180px, 42vw, 260px)", height: "clamp(260px, 50vh, 360px)", right: "5%", top: "8%", zIndex: 1, transform: "rotate(3deg)" }}
+                    style={{
+                      width: "clamp(180px, 42vw, 260px)",
+                      height: "clamp(260px, 50vh, 360px)",
+                      right: "5%",
+                      top: "8%",
+                      zIndex: 1,
+                      transform: "rotate(3deg)",
+                    }}
                     tabIndex="0"
                     role="img"
                     aria-label={backModel.alt}
@@ -840,7 +1005,14 @@
                   <div
                     ref={cardFrontRef}
                     className="model-card absolute bg-white rounded-2xl shadow-2xl border border-black/10 overflow-hidden"
-                    style={{ width: "clamp(200px, 48vw, 300px)", height: "clamp(280px, 55vh, 400px)", left: "5%", bottom: "5%", zIndex: 2, transform: "rotate(-2deg)" }}
+                    style={{
+                      width: "clamp(200px, 48vw, 300px)",
+                      height: "clamp(280px, 55vh, 400px)",
+                      left: "5%",
+                      bottom: "5%",
+                      zIndex: 2,
+                      transform: "rotate(-2deg)",
+                    }}
                     tabIndex="0"
                     role="img"
                     aria-label={frontModel.alt}
@@ -864,19 +1036,33 @@
             </div>
 
             <div ref={railRef} className="relative z-20 w-full mt-auto">
-              <ThumbnailRail activeFrontIndex={frontIndex} onSelect={handleThumbSelect} autoplayEnabled={isPlaying} onToggleAutoplay={toggleAutoplay} />
+              <ThumbnailRail
+                activeFrontIndex={frontIndex}
+                onSelect={handleThumbSelect}
+                autoplayEnabled={isPlaying}
+                onToggleAutoplay={toggleAutoplay}
+              />
             </div>
           </section>
         );
       };
 
       const ShopSection = () => (
-        <section id="shop" className="section-light min-h-screen flex items-center justify-center py-20 px-6 md:px-10" aria-label="Shop section">
+        <section
+          id="shop"
+          className="section-light min-h-screen flex items-center justify-center py-20 px-6 md:px-10"
+          aria-label="Shop section"
+        >
           <div className="max-w-4xl mx-auto text-center reveal" style={{ "--d": "0ms" }}>
-            <span className="font-ui text-xs font-medium tracking-[0.2em] uppercase text-gray-500 mb-6 block">Nueva Colección</span>
-            <h2 className="font-display text-5xl md:text-7xl lg:text-8xl uppercase mb-8 text-inkBlack">RENDER</h2>
+            <span className="font-ui text-xs font-medium tracking-[0.2em] uppercase text-gray-500 mb-6 block">
+              Nueva Colección
+            </span>
+            <h2 className="font-display text-5xl md:text-7xl lg:text-8xl uppercase mb-8 text-inkBlack">
+              RENDER
+            </h2>
             <p className="font-ui text-lg md:text-xl text-gray-700 max-w-2xl mx-auto mb-12 leading-relaxed">
-              Moda editorial contemporánea donde el minimalismo encuentra la audacia. Cada pieza cuenta una historia de elegancia urbana y sofisticación atemporal.
+              Moda editorial contemporánea donde el minimalismo encuentra la audacia.
+              Cada pieza cuenta una historia de elegancia urbana y sofisticación atemporal.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="#archive" className="cta-button cta-primary">Explorar Colección</a>
@@ -887,18 +1073,28 @@
       );
 
       const AboutSection = () => (
-        <section id="about" className="section-light py-20 px-6 md:px-10" aria-label="About section">
+        <section
+          id="about"
+          className="section-light py-20 px-6 md:px-10"
+          aria-label="About section"
+        >
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="reveal" style={{ "--d": "0ms" }}>
-                <span className="font-ui text-xs font-medium tracking-[0.2em] uppercase text-gray-500 mb-4 block">Manifiesto</span>
-                <h2 className="font-display text-4xl md:text-5xl uppercase mb-8 text-inkBlack">RENDER</h2>
+                <span className="font-ui text-xs font-medium tracking-[0.2em] uppercase text-gray-500 mb-4 block">
+                  Manifiesto
+                </span>
+                <h2 className="font-display text-4xl md:text-5xl uppercase mb-8 text-inkBlack">
+                  RENDER
+                </h2>
                 <div className="space-y-4 font-ui text-gray-700 leading-relaxed">
                   <p className="text-lg">RENDER no vende prendas. Vende presencia.</p>
                   <p>Piezas pensadas para la luz, el movimiento y el silencio.</p>
                   <p>Colecciones cortas. Materiales honestos. Corte impecable.</p>
                   <p>Lo nuevo no grita: se sostiene.</p>
-                  <p className="text-lg font-medium">Entra. Mira. Elige lo que te queda cuando nadie te mira.</p>
+                  <p className="text-lg font-medium">
+                    Entra. Mira. Elige lo que te queda cuando nadie te mira.
+                  </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4 mt-8">
                   <a href="#shop" className="cta-button cta-primary">Entrar a la tienda</a>
@@ -908,7 +1104,6 @@
 
               <div className="reveal" style={{ "--d": "100ms" }}>
                 <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl bg-gray-100">
-                  {/* ✅ RUTA CORREGIDA */}
                   <img
                     src="public/assets/mockups/shelves-render.jpg"
                     alt="RENDER showroom"
@@ -928,7 +1123,9 @@
                     }}
                   />
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10">
-                    <span className="font-ui text-xs text-black/30 tracking-wider uppercase">RENDER Showroom</span>
+                    <span className="font-ui text-xs text-black/30 tracking-wider uppercase">
+                      RENDER Showroom
+                    </span>
                   </div>
                 </div>
               </div>
@@ -941,13 +1138,16 @@
         <section id="nueva-coleccion" className="w-full py-20 bg-paperWhite">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             <div className="text-center mb-12">
-              <span className="text-sm font-mono text-renderRed tracking-wider">NUEVA COLECCIÓN</span>
-              <h2 className="text-5xl md:text-7xl font-display text-inkBlack mt-2">LUNA NOIRE</h2>
+              <span className="text-sm font-mono text-renderRed tracking-wider">
+                NUEVA COLECCIÓN
+              </span>
+              <h2 className="text-5xl md:text-7xl font-display text-inkBlack mt-2">
+                LUNA NOIRE
+              </h2>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-gray-100">
-                {/* ✅ RUTA CORREGIDA + ✅ onError correcto en JSX */}
                 <img
                   src="public/assets/mockups/luna-noire-model.jpg"
                   alt="Modelo luciendo colección Luna Noire con detalles de encaje, joyería y calzado"
@@ -965,9 +1165,12 @@
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-3xl font-display text-inkBlack">COLECCIÓN DE ENCAJE</h3>
+                  <h3 className="text-3xl font-display text-inkBlack">
+                    COLECCIÓN DE ENCAJE
+                  </h3>
                   <p className="text-xl text-inkBlack/70 mt-2">
-                    Edición limitada. Pieza única confeccionada en encaje francés con detalles artesanales.
+                    Edición limitada. Pieza única confeccionada en encaje francés con
+                    detalles artesanales.
                   </p>
                 </div>
 
@@ -989,7 +1192,8 @@
                 </p>
 
                 <p className="text-xs text-inkBlack/50">
-                  Nota: si no has subido <strong>luna-noire-model.jpg</strong> a <strong>public/assets/mockups/</strong>, verás el placeholder (pero no rompe nada).
+                  Nota: si no has subido <strong>luna-noire-model.jpg</strong> a{" "}
+                  <strong>public/assets/mockups/</strong>, verás el placeholder (pero no rompe nada).
                 </p>
               </div>
             </div>
@@ -997,14 +1201,43 @@
         </section>
       );
 
+      // ✅ Evita ancla muerta (#guia-tallas)
+      const GuiaTallasSection = () => (
+        <section
+          id="guia-tallas"
+          className="section-light py-20 px-6 md:px-10"
+          aria-label="Guía de tallas"
+        >
+          <div className="max-w-3xl mx-auto text-center reveal" style={{ "--d": "0ms" }}>
+            <span className="font-ui text-xs font-medium tracking-[0.2em] uppercase text-gray-500 mb-4 block">
+              Información
+            </span>
+            <h2 className="font-display text-4xl md:text-5xl uppercase mb-6 text-inkBlack">
+              Guía de tallas
+            </h2>
+            <p className="font-ui text-gray-700 leading-relaxed">
+              Placeholder de guía de tallas. (Aquí puedes añadir tabla S/M/L o medidas por cm.)
+            </p>
+          </div>
+        </section>
+      );
+
       const ArchiveSection = () => {
         const [activeLook, setActiveLook] = useState(null);
         return (
-          <section id="archive" className="section-dark min-h-screen py-20 px-6 md:px-10" aria-label="Archive section">
+          <section
+            id="archive"
+            className="section-dark min-h-screen py-20 px-6 md:px-10"
+            aria-label="Archive section"
+          >
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16 reveal" style={{ "--d": "0ms" }}>
-                <span className="font-ui text-xs font-medium tracking-[0.2em] uppercase text-gray-500 mb-4 block">Archivo</span>
-                <h2 className="font-display text-4xl md:text-6xl uppercase text-white">Looks</h2>
+                <span className="font-ui text-xs font-medium tracking-[0.2em] uppercase text-gray-500 mb-4 block">
+                  Archivo
+                </span>
+                <h2 className="font-display text-4xl md:text-6xl uppercase text-white">
+                  Looks
+                </h2>
               </div>
 
               <div className="archive-grid">
@@ -1015,7 +1248,9 @@
                       activeLook === model.id ? "ring-2 ring-white" : ""
                     }`}
                     style={{ "--d": `${index * 50}ms` }}
-                    onClick={() => setActiveLook(activeLook === model.id ? null : model.id)}
+                    onClick={() =>
+                      setActiveLook(activeLook === model.id ? null : model.id)
+                    }
                     aria-label={`Ver ${model.alt}`}
                     aria-pressed={activeLook === model.id}
                   >
@@ -1052,11 +1287,19 @@
           alert(`Buscando: "${query}"`);
         };
         return (
-          <section id="search" className="section-light min-h-[60vh] flex items-center justify-center py-20 px-6 md:px-10" aria-label="Search section">
+          <section
+            id="search"
+            className="section-light min-h-[60vh] flex items-center justify-center py-20 px-6 md:px-10"
+            aria-label="Search section"
+          >
             <div className="max-w-2xl mx-auto w-full reveal" style={{ "--d": "0ms" }}>
               <div className="text-center mb-12">
-                <span className="font-ui text-xs font-medium tracking-[0.2em] uppercase text-gray-500 mb-4 block">Búsqueda</span>
-                <h2 className="font-display text-4xl md:text-6xl uppercase text-inkBlack">Buscar</h2>
+                <span className="font-ui text-xs font-medium tracking-[0.2em] uppercase text-gray-500 mb-4 block">
+                  Búsqueda
+                </span>
+                <h2 className="font-display text-4xl md:text-6xl uppercase text-inkBlack">
+                  Buscar
+                </h2>
               </div>
 
               <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4">
@@ -1068,7 +1311,11 @@
                   className="search-input flex-1"
                   aria-label="Buscar looks"
                 />
-                <button type="submit" className="cta-button cta-primary" style={{ minWidth: "120px" }}>
+                <button
+                  type="submit"
+                  className="cta-button cta-primary"
+                  style={{ minWidth: "120px" }}
+                >
                   Buscar
                 </button>
               </form>
@@ -1092,8 +1339,12 @@
       const Footer = () => (
         <footer className="bg-inkBlack py-16 px-6 md:px-10">
           <div className="max-w-4xl mx-auto text-center">
-            <h3 className="font-display text-3xl md:text-4xl text-white uppercase mb-6">RENDER</h3>
-            <p className="font-ui text-sm text-gray-400 mb-8">Moda editorial contemporánea</p>
+            <h3 className="font-display text-3xl md:text-4xl text-white uppercase mb-6">
+              RENDER
+            </h3>
+            <p className="font-ui text-sm text-gray-400 mb-8">
+              Moda editorial contemporánea
+            </p>
             <a
               href="#"
               className="back-to-top on-dark inline-flex"
@@ -1105,7 +1356,9 @@
               <span>↑</span>
               <span>Volver arriba</span>
             </a>
-            <p className="font-ui text-xs text-gray-600 mt-12">© 2024 RENDER. Todos los derechos reservados.</p>
+            <p className="font-ui text-xs text-gray-600 mt-12">
+              © 2024 RENDER. Todos los derechos reservados.
+            </p>
           </div>
         </footer>
       );
@@ -1120,6 +1373,7 @@
               <ShopSection />
               <AboutSection />
               <NuevaColeccionSection />
+              <GuiaTallasSection />
               <ArchiveSection />
               <SearchSection />
             </main>
