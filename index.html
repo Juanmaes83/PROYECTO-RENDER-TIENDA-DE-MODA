@@ -4,38 +4,62 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RENDER — Moda editorial</title>
-    <meta name="description" content="RENDER es una experiencia editorial de moda contemporánea. Descubre looks exclusivos, archivo visual y la esencia del estilo urbano." />
+
+    <meta
+      name="description"
+      content="RENDER es una experiencia editorial de moda contemporánea. Descubre looks exclusivos, archivo visual y la esencia del estilo urbano."
+    />
     <meta property="og:title" content="RENDER — Moda editorial" />
-    <meta property="og:description" content="RENDER es una experiencia editorial de moda contemporánea. Descubre looks exclusivos, archivo visual y la esencia del estilo urbano." />
+    <meta
+      property="og:description"
+      content="RENDER es una experiencia editorial de moda contemporánea. Descubre looks exclusivos, archivo visual y la esencia del estilo urbano."
+    />
     <meta property="og:type" content="website" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23FF2A00' width='100' height='100'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Bebas Neue' font-size='50' fill='%230A0A0A'%3ER%3C/text%3E%3C/svg%3E" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23FF2A00' width='100' height='100'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Bebas Neue' font-size='50' fill='%230A0A0A'%3ER%3C/text%3E%3C/svg%3E"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script
+      src="https://unpkg.com/react@18/umd/react.production.min.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+      crossorigin
+    ></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              renderRed: '#FF2A00',
-              inkBlack: '#0A0A0A',
-              paperWhite: '#F7F5F1',
+              renderRed: "#FF2A00",
+              inkBlack: "#0A0A0A",
+              paperWhite: "#F7F5F1",
             },
             fontFamily: {
-              display: ['"Bebas Neue"', 'sans-serif'],
-              ui: ['"Inter Tight"', 'sans-serif'],
+              display: ['"Bebas Neue"', "sans-serif"],
+              ui: ['"Inter Tight"', "sans-serif"],
             },
           },
         },
-      }
+      };
     </script>
+
     <style>
-      /* Motion Tokens */
       :root {
         --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
         --dur-fast: 180ms;
@@ -44,18 +68,23 @@
         --switch-dur: 220ms;
       }
 
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      
-      html { scroll-behavior: smooth; }
-      
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
-        font-family: 'Inter Tight', sans-serif;
-        background-color: #FF2A00;
+        font-family: "Inter Tight", sans-serif;
+        background-color: #ff2a00;
         min-height: 100vh;
         overflow-x: hidden;
       }
-      
-      /* Skip Link */
+
       .skip-link {
         position: absolute;
         top: -100%;
@@ -63,54 +92,60 @@
         transform: translateX(-50%);
         z-index: 9999;
         padding: 12px 24px;
-        background: #0A0A0A;
+        background: #0a0a0a;
         color: #fff;
-        font-family: 'Inter Tight', sans-serif;
+        font-family: "Inter Tight", sans-serif;
         font-size: 14px;
         font-weight: 500;
         text-decoration: none;
         border-radius: 0 0 8px 8px;
         transition: top var(--dur-fast) var(--ease-out-expo);
       }
-      
+
       .skip-link:focus {
         top: 0;
         outline: 2px solid #fff;
         outline-offset: 2px;
       }
-      
-      /* Focus Visible */
-      a:focus-visible, button:focus-visible, input:focus-visible {
+
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible {
         outline: 2px solid #111;
         outline-offset: 2px;
       }
-      
+
       .on-dark:focus-visible {
         outline: 2px solid #fff;
         outline-offset: 2px;
       }
-      
-      .bg-bloom {
-        background: 
-          radial-gradient(ellipse at 20% 10%, rgba(255, 100, 60, 0.5) 0%, transparent 50%),
-          radial-gradient(ellipse at 80% 90%, rgba(180, 30, 0, 0.4) 0%, transparent 50%),
-          #FF2A00;
-      }
-      
+
       .vignette::before {
-        content: '';
+        content: "";
         position: absolute;
         inset: 0;
-        background: 
-          radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.2) 70%, rgba(0,0,0,0.4) 100%),
-          radial-gradient(circle at 20% 80%, rgba(0,0,0,0.1) 0%, transparent 40%),
-          radial-gradient(circle at 80% 20%, rgba(0,0,0,0.1) 0%, transparent 40%);
+        background: radial-gradient(
+            ellipse at center,
+            transparent 30%,
+            rgba(0, 0, 0, 0.2) 70%,
+            rgba(0, 0, 0, 0.4) 100%
+          ),
+          radial-gradient(
+            circle at 20% 80%,
+            rgba(0, 0, 0, 0.1) 0%,
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(0, 0, 0, 0.1) 0%,
+            transparent 40%
+          );
         pointer-events: none;
         z-index: 1;
       }
-      
+
       .film-grain::after {
-        content: '';
+        content: "";
         position: fixed;
         inset: 0;
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
@@ -119,47 +154,101 @@
         z-index: 9998;
         mix-blend-mode: overlay;
       }
-      
-      .crosshair-icon { position: relative; width: 12px; height: 12px; }
-      .crosshair-icon::before, .crosshair-icon::after {
-        content: ''; position: absolute; background-color: currentColor;
+
+      .crosshair-icon {
+        position: relative;
+        width: 12px;
+        height: 12px;
       }
-      .crosshair-icon::before { width: 1px; height: 100%; left: 50%; transform: translateX(-50%); }
-      .crosshair-icon::after { width: 100%; height: 1px; top: 50%; transform: translateY(-50%); }
-      
+      .crosshair-icon::before,
+      .crosshair-icon::after {
+        content: "";
+        position: absolute;
+        background-color: currentColor;
+      }
+      .crosshair-icon::before {
+        width: 1px;
+        height: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .crosshair-icon::after {
+        width: 100%;
+        height: 1px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
       .reveal {
         opacity: 0;
         transform: translateY(16px);
         filter: blur(6px);
-        transition: opacity var(--dur-slow) var(--ease-out-expo), transform var(--dur-slow) var(--ease-out-expo), filter var(--dur-slow) var(--ease-out-expo);
+        transition: opacity var(--dur-slow) var(--ease-out-expo),
+          transform var(--dur-slow) var(--ease-out-expo),
+          filter var(--dur-slow) var(--ease-out-expo);
         transition-delay: var(--d, 0ms);
       }
-      
-      .reveal.is-in { opacity: 1; transform: none; filter: none; }
-      
-      .model-card { transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s ease; }
-      
+      .reveal.is-in {
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+
+      .model-card {
+        transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s ease;
+      }
+
       .card-image-wrapper {
         position: absolute;
         inset: 0;
-        transition: opacity var(--switch-dur) var(--ease-out-expo), transform var(--switch-dur) var(--ease-out-expo);
+        transition: opacity var(--switch-dur) var(--ease-out-expo),
+          transform var(--switch-dur) var(--ease-out-expo);
       }
-      
-      .card-image-wrapper.is-switching { opacity: 0; transform: translateY(8px); }
-      
-      @keyframes kenBurns { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
-      .ken-burns { animation: kenBurns 10s ease-in-out infinite; }
-      
+
+      @keyframes kenBurns {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.02);
+        }
+      }
+      .ken-burns {
+        animation: kenBurns 10s ease-in-out infinite;
+      }
+
       @media (prefers-reduced-motion: reduce) {
-        .ken-burns { animation: none; }
-        *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-        .reveal, .card-image-wrapper, .card-image-wrapper.is-switching { opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important; }
+        .ken-burns {
+          animation: none;
+        }
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+          scroll-behavior: auto !important;
+        }
+        .reveal,
+        .card-image-wrapper {
+          opacity: 1 !important;
+          transform: none !important;
+          filter: none !important;
+          transition: none !important;
+        }
       }
-      
-      .thumbnail-rail::-webkit-scrollbar { height: 4px; }
-      .thumbnail-rail::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
-      .thumbnail-rail::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.3); border-radius: 2px; }
-      
+
+      .thumbnail-rail::-webkit-scrollbar {
+        height: 4px;
+      }
+      .thumbnail-rail::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1);
+      }
+      .thumbnail-rail::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 2px;
+      }
+
       .thumbnail-item {
         transition: all var(--dur-fast) var(--ease-out-expo);
         filter: grayscale(100%);
@@ -167,21 +256,28 @@
         min-width: 44px;
         min-height: 44px;
       }
-      
-      .thumbnail-item:hover, .thumbnail-item:focus-visible {
+      .thumbnail-item:hover,
+      .thumbnail-item:focus-visible {
         filter: grayscale(0%);
         transform: scale(1.06);
         opacity: 1;
-        border-color: rgba(0,0,0,0.5);
+        border-color: rgba(0, 0, 0, 0.5);
       }
-      
-      .thumbnail-item.is-active { filter: grayscale(0%); opacity: 1; border-color: transparent; }
+      .thumbnail-item.is-active {
+        filter: grayscale(0%);
+        opacity: 1;
+        border-color: transparent;
+      }
       .thumbnail-item.is-active::after {
-        content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 2px; background: #0A0A0A;
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 10%;
+        right: 10%;
+        height: 2px;
+        background: #0a0a0a;
       }
-      
-      .giant-text { text-shadow: 0 4px 30px rgba(0,0,0,0.15); user-select: none; pointer-events: none; }
-      
+
       .nav-link {
         transition: opacity var(--dur-fast) ease;
         min-height: 44px;
@@ -190,9 +286,11 @@
         align-items: center;
         justify-content: center;
       }
-      
-      .nav-link:hover, .nav-link:focus-visible { opacity: 0.6; }
-      
+      .nav-link:hover,
+      .nav-link:focus-visible {
+        opacity: 0.6;
+      }
+
       .toggle-back-btn {
         position: absolute;
         top: 20px;
@@ -200,27 +298,27 @@
         z-index: 30;
         padding: 10px 16px;
         min-height: 44px;
-        font-family: 'Inter Tight', sans-serif;
+        font-family: "Inter Tight", sans-serif;
         font-size: 11px;
         font-weight: 500;
         letter-spacing: 0.05em;
         text-transform: uppercase;
-        color: rgba(0,0,0,0.6);
-        background: rgba(255,255,255,0.8);
+        color: rgba(0, 0, 0, 0.6);
+        background: rgba(255, 255, 255, 0.8);
         border: none;
         border-radius: 4px;
         backdrop-filter: blur(4px);
         cursor: pointer;
         transition: all var(--dur-fast) ease;
       }
-      
-      .toggle-back-btn:hover, .toggle-back-btn:focus-visible {
-        background: rgba(255,255,255,1);
-        color: #0A0A0A;
-        outline: 2px solid #0A0A0A;
+      .toggle-back-btn:hover,
+      .toggle-back-btn:focus-visible {
+        background: rgba(255, 255, 255, 1);
+        color: #0a0a0a;
+        outline: 2px solid #0a0a0a;
         outline-offset: 2px;
       }
-      
+
       .autoplay-btn {
         width: 44px;
         height: 44px;
@@ -228,33 +326,41 @@
         align-items: center;
         justify-content: center;
         font-size: 16px;
-        color: rgba(0,0,0,0.6);
-        background: rgba(255,255,255,0.3);
+        color: rgba(0, 0, 0, 0.6);
+        background: rgba(255, 255, 255, 0.3);
         border: none;
         border-radius: 50%;
         cursor: pointer;
         transition: all var(--dur-fast) ease;
       }
-      
-      .autoplay-btn:hover, .autoplay-btn:focus-visible {
-        background: rgba(255,255,255,0.5);
-        color: #0A0A0A;
-        outline: 2px solid #0A0A0A;
+      .autoplay-btn:hover,
+      .autoplay-btn:focus-visible {
+        background: rgba(255, 255, 255, 0.5);
+        color: #0a0a0a;
+        outline: 2px solid #0a0a0a;
         outline-offset: 2px;
       }
-      
-      .autoplay-btn.is-playing { background: rgba(0,0,0,0.2); color: #fff; }
-      
-      .section-light { background: #fafafa; color: #0A0A0A; }
-      .section-dark { background: #0A0A0A; color: #fff; }
-      
+      .autoplay-btn.is-playing {
+        background: rgba(0, 0, 0, 0.2);
+        color: #fff;
+      }
+
+      .section-light {
+        background: #fafafa;
+        color: #0a0a0a;
+      }
+      .section-dark {
+        background: #0a0a0a;
+        color: #fff;
+      }
+
       .cta-button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
         padding: 16px 32px;
         min-height: 48px;
-        font-family: 'Inter Tight', sans-serif;
+        font-family: "Inter Tight", sans-serif;
         font-size: 13px;
         font-weight: 600;
         letter-spacing: 0.1em;
@@ -265,150 +371,222 @@
         cursor: pointer;
         border: none;
       }
-      
-      .cta-primary { background: #0A0A0A; color: #fff; }
-      .cta-primary:hover, .cta-primary:focus-visible { background: #333; transform: translateY(-2px); }
-      
-      .cta-secondary { background: transparent; color: #0A0A0A; border: 1px solid #0A0A0A; }
-      .cta-secondary:hover, .cta-secondary:focus-visible { background: #0A0A0A; color: #fff; }
-      
-      .cta-light { background: #fff; color: #0A0A0A; }
-      .cta-light:hover, .cta-light:focus-visible { background: #f0f0f0; transform: translateY(-2px); }
-      
-      .archive-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
-      @media (max-width: 640px) { .archive-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
-      
+      .cta-primary {
+        background: #0a0a0a;
+        color: #fff;
+      }
+      .cta-primary:hover,
+      .cta-primary:focus-visible {
+        background: #333;
+        transform: translateY(-2px);
+      }
+      .cta-secondary {
+        background: transparent;
+        color: #0a0a0a;
+        border: 1px solid #0a0a0a;
+      }
+      .cta-secondary:hover,
+      .cta-secondary:focus-visible {
+        background: #0a0a0a;
+        color: #fff;
+      }
+
+      .archive-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 16px;
+      }
+      @media (max-width: 640px) {
+        .archive-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+        }
+      }
+
       .search-input {
         width: 100%;
         max-width: 500px;
         padding: 16px 20px;
-        font-family: 'Inter Tight', sans-serif;
+        font-family: "Inter Tight", sans-serif;
         font-size: 16px;
         border: 1px solid #ddd;
         border-radius: 4px;
         background: #fff;
         transition: border-color var(--dur-fast) ease;
       }
-      
-      .search-input:focus { outline: none; border-color: #0A0A0A; }
-      
+      .search-input:focus {
+        outline: none;
+        border-color: #0a0a0a;
+      }
+
       .back-to-top {
         display: inline-flex;
         align-items: center;
         gap: 8px;
         padding: 12px 24px;
-        font-family: 'Inter Tight', sans-serif;
+        font-family: "Inter Tight", sans-serif;
         font-size: 12px;
         font-weight: 500;
         letter-spacing: 0.1em;
         text-transform: uppercase;
         text-decoration: none;
         color: #fff;
-        background: rgba(255,255,255,0.1);
+        background: rgba(255, 255, 255, 0.1);
         border-radius: 4px;
         transition: all var(--dur-fast) ease;
       }
-      
-      .back-to-top:hover, .back-to-top:focus-visible { background: rgba(255,255,255,0.2); }
+      .back-to-top:hover,
+      .back-to-top:focus-visible {
+        background: rgba(255, 255, 255, 0.2);
+      }
     </style>
   </head>
+
   <body class="film-grain">
     <a href="#contenido-principal" class="skip-link">Saltar al contenido</a>
     <div id="root"></div>
-    
+
     <script type="text/babel">
       const { useState, useEffect, useRef, useCallback } = React;
 
-      // DATA MODEL
+      // ✅ RUTAS CORREGIDAS (sin "/" inicial) para GitHub Pages + repo subpath
       const MODELS = Array.from({ length: 16 }, (_, i) => ({
-        id: String(i + 1).padStart(2, '0'),
-        src: `/assets/models/model-${String(i + 1).padStart(2, '0')}.jpg`,
-        alt: `Look editorial ${String(i + 1).padStart(2, '0')}`,
+        id: String(i + 1).padStart(2, "0"),
+        src: `public/assets/models/model-${String(i + 1).padStart(2, "0")}.jpg`,
+        alt: `Look editorial ${String(i + 1).padStart(2, "0")}`,
       }));
 
-      // GSAP availability check
-      const hasGSAP = typeof window !== 'undefined' && window.gsap;
-      const reduceMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const hasGSAP = typeof window !== "undefined" && window.gsap;
+      const reduceMotion =
+        typeof window !== "undefined" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      // useReveal Hook
       const useReveal = () => {
         useEffect(() => {
           if (reduceMotion) {
-            document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-in'));
+            document
+              .querySelectorAll(".reveal")
+              .forEach((el) => el.classList.add("is-in"));
             return;
           }
           const observer = new IntersectionObserver(
             (entries) => {
               entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                  entry.target.classList.add('is-in');
+                  entry.target.classList.add("is-in");
                   observer.unobserve(entry.target);
                 }
               });
             },
-            { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+            { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
           );
-          document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+          document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
           return () => observer.disconnect();
         }, []);
       };
 
-      // Navbar
       const Navbar = () => (
-        <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-6 md:px-10 md:py-8 bg-gradient-to-b from-black/10 to-transparent" role="navigation" aria-label="Main navigation">
+        <nav
+          className="fixed top-0 left-0 right-0 z-50 px-6 py-6 md:px-10 md:py-8 bg-gradient-to-b from-black/10 to-transparent"
+          role="navigation"
+          aria-label="Main navigation"
+        >
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3 reveal" style={{ '--d': '0ms' }}>
+            <div className="flex items-center gap-3 reveal" style={{ "--d": "0ms" }}>
               <span className="crosshair-icon text-inkBlack" aria-hidden="true" />
-              <a href="#shop" className="nav-link on-dark font-ui text-xs font-medium tracking-[0.2em] uppercase text-inkBlack">Shop</a>
+              <a
+                href="#shop"
+                className="nav-link on-dark font-ui text-xs font-medium tracking-[0.2em] uppercase text-inkBlack"
+              >
+                Shop
+              </a>
             </div>
-            <a href="#archive" className="nav-link on-dark reveal font-ui text-xs font-medium tracking-[0.2em] uppercase text-inkBlack" style={{ '--d': '80ms' }}>Archive</a>
-            <a href="#search" className="nav-link on-dark reveal font-ui text-xs font-medium tracking-[0.2em] uppercase text-inkBlack" style={{ '--d': '160ms' }}>Search</a>
+            <a
+              href="#archive"
+              className="nav-link on-dark reveal font-ui text-xs font-medium tracking-[0.2em] uppercase text-inkBlack"
+              style={{ "--d": "80ms" }}
+            >
+              Archive
+            </a>
+            <a
+              href="#search"
+              className="nav-link on-dark reveal font-ui text-xs font-medium tracking-[0.2em] uppercase text-inkBlack"
+              style={{ "--d": "160ms" }}
+            >
+              Search
+            </a>
           </div>
         </nav>
       );
 
-      // ThumbnailRail
       const ThumbnailRail = ({ activeFrontIndex, onSelect, autoplayEnabled, onToggleAutoplay }) => {
-        const handleSelect = (index) => { onSelect(index); };
-        const handleKeyDown = (e, index) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSelect(index); } };
+        const handleSelect = (index) => onSelect(index);
+        const handleKeyDown = (e, index) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleSelect(index);
+          }
+        };
 
-        // Scroll active thumbnail into view when frontIndex changes
         useEffect(() => {
           const activeThumb = document.querySelector(`[data-thumb-index="${activeFrontIndex}"]`);
-          if (activeThumb) {
-            activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-          }
+          if (activeThumb) activeThumb.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
         }, [activeFrontIndex]);
 
         return (
-          <div className="w-full px-4 md:px-8 pb-4 reveal" style={{ '--d': '400ms' }}>
+          <div className="w-full px-4 md:px-8 pb-4 reveal" style={{ "--d": "400ms" }}>
             <div className="flex items-center justify-between mb-2">
-              <span className="font-ui text-[10px] text-black/40 tracking-wider uppercase">Selecciona un look</span>
+              <span className="font-ui text-[10px] text-black/40 tracking-wider uppercase">
+                Selecciona un look
+              </span>
               {!reduceMotion && (
                 <button
-                  className={`autoplay-btn on-dark ${autoplayEnabled ? 'is-playing' : ''}`}
+                  className={`autoplay-btn on-dark ${autoplayEnabled ? "is-playing" : ""}`}
                   onClick={onToggleAutoplay}
-                  aria-label={autoplayEnabled ? 'Pausar presentación' : 'Iniciar presentación'}
-                  title={autoplayEnabled ? 'Pausar' : 'Reproducir'}
+                  aria-label={autoplayEnabled ? "Pausar presentación" : "Iniciar presentación"}
+                  title={autoplayEnabled ? "Pausar" : "Reproducir"}
                 >
-                  {autoplayEnabled ? '⏸' : '▶'}
+                  {autoplayEnabled ? "⏸" : "▶"}
                 </button>
               )}
             </div>
-            <div className="thumbnail-rail flex gap-3 overflow-x-auto py-4" style={{ scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }} role="region" aria-label="Model thumbnail gallery">
+
+            <div
+              className="thumbnail-rail flex gap-3 overflow-x-auto py-4"
+              style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch" }}
+              role="region"
+              aria-label="Model thumbnail gallery"
+            >
               {MODELS.map((model, index) => (
                 <button
                   key={model.id}
                   data-thumb-index={index}
-                  className={`thumbnail-item on-dark scroll-snap-start flex-shrink-0 relative rounded-lg overflow-hidden bg-white/10 border border-transparent focus:outline-none ${activeFrontIndex === index ? 'is-active' : ''}`}
-                  style={{ width: 'clamp(60px, 12vw, 80px)', height: 'clamp(60px, 12vw, 80px)', scrollSnapAlign: 'start' }}
+                  className={`thumbnail-item on-dark flex-shrink-0 relative rounded-lg overflow-hidden bg-white/10 border border-transparent focus:outline-none ${
+                    activeFrontIndex === index ? "is-active" : ""
+                  }`}
+                  style={{
+                    width: "clamp(60px, 12vw, 80px)",
+                    height: "clamp(60px, 12vw, 80px)",
+                    scrollSnapAlign: "start",
+                  }}
                   aria-label={`Ver modelo ${model.id}`}
                   aria-pressed={activeFrontIndex === index}
                   onClick={() => handleSelect(index)}
                   onKeyDown={(e) => handleKeyDown(e, index)}
                 >
-                  <img src={model.src} alt={model.alt} className="w-full h-full object-cover" loading="lazy" decoding="async" width="80" height="80"
-                    onError={(e) => { e.target.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect fill='%23e8e8e8' width='80' height='80'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='10' fill='%23666'%3E${model.id}%3C/text%3E%3C/svg%3E`; }} />
+                  <img
+                    src={model.src}
+                    alt={model.alt}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                    width="80"
+                    height="80"
+                    onError={(e) => {
+                      e.target.src =
+                        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect fill='%23e8e8e8' width='80' height='80'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='10' fill='%23666'%3EERR%3C/text%3E%3C/svg%3E";
+                    }}
+                  />
                 </button>
               ))}
             </div>
@@ -416,15 +594,13 @@
         );
       };
 
-      // HeroStage with GSAP
       const HeroStage = () => {
         const [frontIndex, setFrontIndex] = useState(0);
         const [backIndex, setBackIndex] = useState(1);
         const [isPlaying, setIsPlaying] = useState(false);
         const [isSwapping, setIsSwapping] = useState(false);
         const intervalRef = useRef(null);
-        
-        // DOM refs for GSAP
+
         const cardFrontRef = useRef(null);
         const cardBackRef = useRef(null);
         const imgFrontRef = useRef(null);
@@ -432,26 +608,35 @@
         const titleRef = useRef(null);
         const railRef = useRef(null);
 
-        // GSAP Intro Animation - animate from visible to visible (subtle entrance)
         useEffect(() => {
           if (hasGSAP && !reduceMotion && cardFrontRef.current && cardBackRef.current) {
-            const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
-            tl.fromTo(cardBackRef.current, 
-              { y: 20, opacity: 0.8, scale: 0.98 }, 
-              { y: 0, opacity: 1, scale: 1, duration: 0.7 })
-              .fromTo(cardFrontRef.current, 
-                { y: 25, opacity: 0.8, scale: 0.97 }, 
-                { y: 0, opacity: 1, scale: 1, duration: 0.8 }, '-=0.5')
-              .fromTo(titleRef.current, 
-                { y: 15, opacity: 0.5 }, 
-                { y: 0, opacity: 0.9, duration: 0.6 }, '-=0.6')
-              .fromTo(railRef.current, 
-                { y: 10, opacity: 0.6 }, 
-                { y: 0, opacity: 1, duration: 0.4 }, '-=0.4');
+            const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+            tl.fromTo(
+              cardBackRef.current,
+              { y: 20, opacity: 0.8, scale: 0.98 },
+              { y: 0, opacity: 1, scale: 1, duration: 0.7 }
+            )
+              .fromTo(
+                cardFrontRef.current,
+                { y: 25, opacity: 0.8, scale: 0.97 },
+                { y: 0, opacity: 1, scale: 1, duration: 0.8 },
+                "-=0.5"
+              )
+              .fromTo(
+                titleRef.current,
+                { y: 15, opacity: 0.5 },
+                { y: 0, opacity: 0.9, duration: 0.6 },
+                "-=0.6"
+              )
+              .fromTo(
+                railRef.current,
+                { y: 10, opacity: 0.6 },
+                { y: 0, opacity: 1, duration: 0.4 },
+                "-=0.4"
+              );
           }
         }, []);
 
-        // Visibility change handler
         useEffect(() => {
           const handleVisibility = () => {
             if (document.hidden && intervalRef.current) {
@@ -461,13 +646,14 @@
               startAutoplay();
             }
           };
-          document.addEventListener('visibilitychange', handleVisibility);
-          return () => document.removeEventListener('visibilitychange', handleVisibility);
+          document.addEventListener("visibilitychange", handleVisibility);
+          return () => document.removeEventListener("visibilitychange", handleVisibility);
         }, [isPlaying]);
 
-        // Cleanup on unmount
         useEffect(() => {
-          return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
+          return () => {
+            if (intervalRef.current) clearInterval(intervalRef.current);
+          };
         }, []);
 
         const startAutoplay = useCallback(() => {
@@ -497,46 +683,56 @@
           }
         }, [isPlaying, frontIndex, startAutoplay, stopAutoplay]);
 
-        const performSwap = useCallback((newFrontIndex) => {
-          if (isSwapping || newFrontIndex === frontIndex) return;
-          setIsSwapping(true);
+        const performSwap = useCallback(
+          (newFrontIndex) => {
+            if (isSwapping || newFrontIndex === frontIndex) return;
+            setIsSwapping(true);
 
-          let newBackIndex = (newFrontIndex + 1) % MODELS.length;
-          if (newBackIndex === newFrontIndex) newBackIndex = (newFrontIndex + 2) % MODELS.length;
+            let newBackIndex = (newFrontIndex + 1) % MODELS.length;
+            if (newBackIndex === newFrontIndex) newBackIndex = (newFrontIndex + 2) % MODELS.length;
 
-          // GSAP Premium Swap
-          if (hasGSAP && !reduceMotion && imgFrontRef.current && imgBackRef.current) {
-            const tl = gsap.timeline({
-              onComplete: () => {
-                setIsSwapping(false);
-              }
-            });
-            tl.to(imgFrontRef.current, { opacity: 0, y: 8, scale: 0.992, duration: 0.18, overwrite: 'auto' }, 0)
-              .to(imgBackRef.current, { opacity: 0, y: 6, scale: 0.99, duration: 0.18, overwrite: 'auto' }, 0)
-              .to(cardFrontRef.current, { x: -6, duration: 0.2, overwrite: 'auto' }, 0)
-              .to(cardBackRef.current, { x: 6, duration: 0.2, overwrite: 'auto' }, 0)
-              .add(() => {
-                setFrontIndex(newFrontIndex);
-                setBackIndex(newBackIndex);
-              })
-              .fromTo(imgFrontRef.current, { opacity: 0, x: -12, y: 10, scale: 0.99 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.42, overwrite: 'auto' })
-              .fromTo(imgBackRef.current, { opacity: 0, x: 14, y: 6, scale: 0.99 }, { opacity: 0.92, x: 0, y: 0, scale: 1, duration: 0.42, overwrite: 'auto' }, '-=0.34')
-              .to(cardFrontRef.current, { x: 0, duration: 0.42, overwrite: 'auto' }, '-=0.42')
-              .to(cardBackRef.current, { x: 0, duration: 0.42, overwrite: 'auto' }, '-=0.42');
-          } else {
-            // CSS fallback
-            setFrontIndex(newFrontIndex);
-            setBackIndex(newBackIndex);
-            setTimeout(() => setIsSwapping(false), 220);
-          }
-          // Scroll is handled by useEffect in ThumbnailRail via data-thumb-index
-        }, [frontIndex, isSwapping]);
+            if (hasGSAP && !reduceMotion && imgFrontRef.current && imgBackRef.current) {
+              const tl = gsap.timeline({
+                onComplete: () => setIsSwapping(false),
+              });
+              tl.to(imgFrontRef.current, { opacity: 0, y: 8, scale: 0.992, duration: 0.18, overwrite: "auto" }, 0)
+                .to(imgBackRef.current, { opacity: 0, y: 6, scale: 0.99, duration: 0.18, overwrite: "auto" }, 0)
+                .to(cardFrontRef.current, { x: -6, duration: 0.2, overwrite: "auto" }, 0)
+                .to(cardBackRef.current, { x: 6, duration: 0.2, overwrite: "auto" }, 0)
+                .add(() => {
+                  setFrontIndex(newFrontIndex);
+                  setBackIndex(newBackIndex);
+                })
+                .fromTo(
+                  imgFrontRef.current,
+                  { opacity: 0, x: -12, y: 10, scale: 0.99 },
+                  { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.42, overwrite: "auto" }
+                )
+                .fromTo(
+                  imgBackRef.current,
+                  { opacity: 0, x: 14, y: 6, scale: 0.99 },
+                  { opacity: 0.92, x: 0, y: 0, scale: 1, duration: 0.42, overwrite: "auto" },
+                  "-=0.34"
+                )
+                .to(cardFrontRef.current, { x: 0, duration: 0.42, overwrite: "auto" }, "-=0.42")
+                .to(cardBackRef.current, { x: 0, duration: 0.42, overwrite: "auto" }, "-=0.42");
+            } else {
+              setFrontIndex(newFrontIndex);
+              setBackIndex(newBackIndex);
+              setTimeout(() => setIsSwapping(false), 220);
+            }
+          },
+          [frontIndex, isSwapping]
+        );
 
-        const handleThumbSelect = useCallback((index) => {
-          stopAutoplay();
-          setIsPlaying(false);
-          performSwap(index);
-        }, [performSwap, stopAutoplay]);
+        const handleThumbSelect = useCallback(
+          (index) => {
+            stopAutoplay();
+            setIsPlaying(false);
+            performSwap(index);
+          },
+          [performSwap, stopAutoplay]
+        );
 
         const handleToggleBack = useCallback(() => {
           stopAutoplay();
@@ -549,12 +745,20 @@
 
           if (hasGSAP && !reduceMotion && imgBackRef.current) {
             gsap.to(imgBackRef.current, {
-              opacity: 0, y: 6, scale: 0.99, duration: 0.18, overwrite: 'auto',
+              opacity: 0,
+              y: 6,
+              scale: 0.99,
+              duration: 0.18,
+              overwrite: "auto",
               onComplete: () => {
                 setBackIndex(newBackIndex);
-                gsap.fromTo(imgBackRef.current, { opacity: 0, x: 14, y: 6, scale: 0.99 }, { opacity: 0.92, x: 0, y: 0, scale: 1, duration: 0.42, overwrite: 'auto' });
+                gsap.fromTo(
+                  imgBackRef.current,
+                  { opacity: 0, x: 14, y: 6, scale: 0.99 },
+                  { opacity: 0.92, x: 0, y: 0, scale: 1, duration: 0.42, overwrite: "auto" }
+                );
                 setIsSwapping(false);
-              }
+              },
             });
           } else {
             setBackIndex(newBackIndex);
@@ -562,18 +766,23 @@
           }
         }, [backIndex, frontIndex, isSwapping, stopAutoplay]);
 
-        // Hover micro-depth (desktop only)
         const handleMouseEnter = useCallback(() => {
-          if (hasGSAP && !reduceMotion && window.matchMedia('(hover:hover) and (pointer:fine)').matches && cardFrontRef.current && cardBackRef.current) {
-            gsap.to(cardFrontRef.current, { y: -10, rotate: -0.6, scale: 1.012, duration: 0.45, ease: 'power3.out', overwrite: 'auto' });
-            gsap.to(cardBackRef.current, { y: 6, x: 10, rotate: 0.35, scale: 0.995, duration: 0.45, ease: 'power3.out', overwrite: 'auto' });
+          if (
+            hasGSAP &&
+            !reduceMotion &&
+            window.matchMedia("(hover:hover) and (pointer:fine)").matches &&
+            cardFrontRef.current &&
+            cardBackRef.current
+          ) {
+            gsap.to(cardFrontRef.current, { y: -10, rotate: -0.6, scale: 1.012, duration: 0.45, ease: "power3.out", overwrite: "auto" });
+            gsap.to(cardBackRef.current, { y: 6, x: 10, rotate: 0.35, scale: 0.995, duration: 0.45, ease: "power3.out", overwrite: "auto" });
           }
         }, []);
 
         const handleMouseLeave = useCallback(() => {
           if (hasGSAP && !reduceMotion && cardFrontRef.current && cardBackRef.current) {
-            gsap.to(cardFrontRef.current, { y: 0, rotate: -2, scale: 1, duration: 0.45, ease: 'power3.out', overwrite: 'auto' });
-            gsap.to(cardBackRef.current, { y: 0, x: 0, rotate: 3, scale: 1, duration: 0.45, ease: 'power3.out', overwrite: 'auto' });
+            gsap.to(cardFrontRef.current, { y: 0, rotate: -2, scale: 1, duration: 0.45, ease: "power3.out", overwrite: "auto" });
+            gsap.to(cardBackRef.current, { y: 0, x: 0, rotate: 3, scale: 1, duration: 0.45, ease: "power3.out", overwrite: "auto" });
           }
         }, []);
 
@@ -581,49 +790,73 @@
         const backModel = MODELS[backIndex];
 
         return (
-          <section 
+          <section
             className="hero-area relative min-h-screen w-full flex flex-col items-center justify-center vignette overflow-hidden"
             aria-label="Hero section"
-            data-anim="hero"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onFocus={handleMouseEnter}
             onBlur={handleMouseLeave}
           >
-            <button className="toggle-back-btn on-dark" onClick={handleToggleBack} aria-label="Cambiar imagen trasera">Cambiar trasera</button>
+            <button className="toggle-back-btn on-dark" onClick={handleToggleBack} aria-label="Cambiar imagen trasera">
+              Cambiar trasera
+            </button>
 
-            <div ref={titleRef} data-anim="title" className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-1" aria-hidden="true">
-              <h1 className="font-display text-inkBlack uppercase whitespace-nowrap" style={{ fontSize: 'clamp(6rem,25vw,18rem)', opacity: 0.9, letterSpacing: '-0.03em', lineHeight: 0.8 }}>RENDER</h1>
+            <div ref={titleRef} className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-1" aria-hidden="true">
+              <h1
+                className="font-display text-inkBlack uppercase whitespace-nowrap"
+                style={{ fontSize: "clamp(6rem,25vw,18rem)", opacity: 0.9, letterSpacing: "-0.03em", lineHeight: 0.8 }}
+              >
+                RENDER
+              </h1>
             </div>
-
-            {[{ top: '12%', left: '15%' }, { top: '18%', right: '20%' }, { top: '75%', left: '12%' }, { top: '78%', right: '18%' }, { top: '48%', left: '6%' }, { top: '52%', right: '8%' }, { top: '35%', left: '25%' }, { top: '65%', right: '25%' }].map((pos, i) => (
-              <span key={i} className="absolute pointer-events-none z-10" style={{ ...pos, transform: 'translate(-50%, -50%)' }} aria-hidden="true">
-                <span className="text-black/20 text-sm font-light" style={{ fontFamily: 'monospace' }}>+</span>
-              </span>
-            ))}
 
             <div className="relative z-20 flex flex-col items-center justify-center flex-1 w-full px-4">
               <div className="flex items-center justify-center flex-1 py-20">
-                <div className="cards-container relative flex items-center justify-center" style={{ width: 'clamp(280px, 80vw, 500px)', height: 'clamp(360px, 55vh, 500px)' }}>
-                  {/* Back Card */}
-                  <div ref={cardBackRef} data-anim="card-back" className="model-card absolute bg-white rounded-2xl shadow-xl border border-black/5 overflow-hidden" style={{ width: 'clamp(180px, 42vw, 260px)', height: 'clamp(260px, 50vh, 360px)', right: '5%', top: '8%', zIndex: 1, transform: 'rotate(3deg)' }} tabIndex="0" role="img" aria-label={backModel.alt}>
-                    <div ref={imgBackRef} data-anim="img-back" className="card-image-wrapper">
-                      <img src={backModel.src} alt={backModel.alt} className="w-full h-full object-cover ken-burns" loading="lazy" decoding="async"
-                        onError={(e) => { e.target.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 360'%3E%3Crect fill='%23e5e5e5' width='260' height='360'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%23999'%3EModel B%3C/text%3E%3C/svg%3E`; }} />
-                    </div>
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none bg-gradient-to-br from-gray-100 to-gray-200 -z-10">
-                      <span className="font-ui text-xs text-black/30 tracking-wider uppercase">Model B</span>
+                <div className="cards-container relative flex items-center justify-center" style={{ width: "clamp(280px, 80vw, 500px)", height: "clamp(360px, 55vh, 500px)" }}>
+                  <div
+                    ref={cardBackRef}
+                    className="model-card absolute bg-white rounded-2xl shadow-xl border border-black/5 overflow-hidden"
+                    style={{ width: "clamp(180px, 42vw, 260px)", height: "clamp(260px, 50vh, 360px)", right: "5%", top: "8%", zIndex: 1, transform: "rotate(3deg)" }}
+                    tabIndex="0"
+                    role="img"
+                    aria-label={backModel.alt}
+                  >
+                    <div ref={imgBackRef} className="card-image-wrapper">
+                      <img
+                        src={backModel.src}
+                        alt={backModel.alt}
+                        className="w-full h-full object-cover ken-burns"
+                        loading="lazy"
+                        decoding="async"
+                        onError={(e) => {
+                          e.target.src =
+                            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 360'%3E%3Crect fill='%23e5e5e5' width='260' height='360'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%23999'%3EModel B%3C/text%3E%3C/svg%3E";
+                        }}
+                      />
                     </div>
                   </div>
 
-                  {/* Front Card */}
-                  <div ref={cardFrontRef} data-anim="card-front" className="model-card absolute bg-white rounded-2xl shadow-2xl border border-black/10 overflow-hidden" style={{ width: 'clamp(200px, 48vw, 300px)', height: 'clamp(280px, 55vh, 400px)', left: '5%', bottom: '5%', zIndex: 2, transform: 'rotate(-2deg)' }} tabIndex="0" role="img" aria-label={frontModel.alt}>
-                    <div ref={imgFrontRef} data-anim="img-front" className="card-image-wrapper">
-                      <img src={frontModel.src} alt={frontModel.alt} className="w-full h-full object-cover ken-burns" loading="eager" decoding="async"
-                        onError={(e) => { e.target.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 400'%3E%3Crect fill='%23f0f0f0' width='300' height='400'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%23999'%3EModel A%3C/text%3E%3C/svg%3E`; }} />
-                    </div>
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none bg-gradient-to-br from-gray-50 to-gray-200 -z-10">
-                      <span className="font-ui text-xs text-black/30 tracking-wider uppercase">Model A</span>
+                  <div
+                    ref={cardFrontRef}
+                    className="model-card absolute bg-white rounded-2xl shadow-2xl border border-black/10 overflow-hidden"
+                    style={{ width: "clamp(200px, 48vw, 300px)", height: "clamp(280px, 55vh, 400px)", left: "5%", bottom: "5%", zIndex: 2, transform: "rotate(-2deg)" }}
+                    tabIndex="0"
+                    role="img"
+                    aria-label={frontModel.alt}
+                  >
+                    <div ref={imgFrontRef} className="card-image-wrapper">
+                      <img
+                        src={frontModel.src}
+                        alt={frontModel.alt}
+                        className="w-full h-full object-cover ken-burns"
+                        loading="eager"
+                        decoding="async"
+                        onError={(e) => {
+                          e.target.src =
+                            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 400'%3E%3Crect fill='%23f0f0f0' width='300' height='400'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%23999'%3EModel A%3C/text%3E%3C/svg%3E";
+                        }}
+                      />
                     </div>
                   </div>
                 </div>
@@ -637,10 +870,9 @@
         );
       };
 
-      // Shop Section
       const ShopSection = () => (
         <section id="shop" className="section-light min-h-screen flex items-center justify-center py-20 px-6 md:px-10" aria-label="Shop section">
-          <div className="max-w-4xl mx-auto text-center reveal" style={{ '--d': '0ms' }}>
+          <div className="max-w-4xl mx-auto text-center reveal" style={{ "--d": "0ms" }}>
             <span className="font-ui text-xs font-medium tracking-[0.2em] uppercase text-gray-500 mb-6 block">Nueva Colección</span>
             <h2 className="font-display text-5xl md:text-7xl lg:text-8xl uppercase mb-8 text-inkBlack">RENDER</h2>
             <p className="font-ui text-lg md:text-xl text-gray-700 max-w-2xl mx-auto mb-12 leading-relaxed">
@@ -654,12 +886,11 @@
         </section>
       );
 
-      // About / Manifesto Section
       const AboutSection = () => (
         <section id="about" className="section-light py-20 px-6 md:px-10" aria-label="About section">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="reveal" style={{ '--d': '0ms' }}>
+              <div className="reveal" style={{ "--d": "0ms" }}>
                 <span className="font-ui text-xs font-medium tracking-[0.2em] uppercase text-gray-500 mb-4 block">Manifiesto</span>
                 <h2 className="font-display text-4xl md:text-5xl uppercase mb-8 text-inkBlack">RENDER</h2>
                 <div className="space-y-4 font-ui text-gray-700 leading-relaxed">
@@ -674,17 +905,26 @@
                   <a href="#archive" className="cta-button cta-secondary">Ver colección</a>
                 </div>
               </div>
-              <div className="reveal" style={{ '--d': '100ms' }}>
+
+              <div className="reveal" style={{ "--d": "100ms" }}>
                 <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl bg-gray-100">
-                  <img 
-                    src="/assets/mockups/shelves-render.jpg" 
-                    alt="RENDER showroom" 
+                  {/* ✅ RUTA CORREGIDA */}
+                  <img
+                    src="public/assets/mockups/shelves-render.jpg"
+                    alt="RENDER showroom"
                     className="w-full h-full object-cover"
                     loading="lazy"
                     decoding="async"
-                    onError={(e) => { 
-                      e.target.style.display = 'none';
-                      e.target.parentElement.classList.add('flex', 'items-center', 'justify-center', 'bg-gradient-to-br', 'from-gray-100', 'to-gray-200');
+                    onError={(e) => {
+                      e.target.style.display = "none";
+                      e.target.parentElement.classList.add(
+                        "flex",
+                        "items-center",
+                        "justify-center",
+                        "bg-gradient-to-br",
+                        "from-gray-100",
+                        "to-gray-200"
+                      );
                     }}
                   />
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10">
@@ -697,58 +937,59 @@
         </section>
       );
 
-      // Nueva Colección LUNA NOIRE Section
       const NuevaColeccionSection = () => (
         <section id="nueva-coleccion" className="w-full py-20 bg-paperWhite">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
-            {/* Encabezado */}
             <div className="text-center mb-12">
               <span className="text-sm font-mono text-renderRed tracking-wider">NUEVA COLECCIÓN</span>
               <h2 className="text-5xl md:text-7xl font-display text-inkBlack mt-2">LUNA NOIRE</h2>
             </div>
 
-            {/* Contenedor de dos columnas (imagen + info) */}
             <div className="grid md:grid-cols-2 gap-8 items-center">
-              {/* Columna izquierda: imagen generada */}
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <img 
-                  src="/assets/mockups/luna-noire-model.jpg"
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-gray-100">
+                {/* ✅ RUTA CORREGIDA + ✅ onError correcto en JSX */}
+                <img
+                  src="public/assets/mockups/luna-noire-model.jpg"
                   alt="Modelo luciendo colección Luna Noire con detalles de encaje, joyería y calzado"
                   className="w-full h-auto object-cover"
                   loading="lazy"
                   decoding="async"
                   width="1080"
                   height="720"
-                  onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221080%22%20height%3D%22720%22%20viewBox%3D%220%200%201080%20720%22%3E%3Crect%20width%3D%221080%22%20height%3D%22720%22%20fill%3D%22%23f0f0f0%22%2F%3E%3Ctext%20x%3D%22540%22%20y%3D%22360%22%20font-family%3D%22Arial%22%20font-size%3D%2224%22%20fill%3D%22%23999%22%20text-anchor%3D%22middle%22%3EImagen%20no%20disponible%3C%2Ftext%3E%3C%2Fsvg%3E'"
+                  onError={(e) => {
+                    e.target.src =
+                      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1080' height='720' viewBox='0 0 1080 720'%3E%3Crect width='1080' height='720' fill='%23f0f0f0'/%3E%3Ctext x='540' y='360' font-family='Arial' font-size='24' fill='%23999' text-anchor='middle'%3EImagen no disponible%3C/text%3E%3C/svg%3E";
+                  }}
                 />
               </div>
 
-              {/* Columna derecha: información de producto */}
               <div className="space-y-6">
                 <div>
                   <h3 className="text-3xl font-display text-inkBlack">COLECCIÓN DE ENCAJE</h3>
-                  <p className="text-xl text-inkBlack/70 mt-2">Edición limitada. Pieza única confeccionada en encaje francés con detalles artesanales.</p>
+                  <p className="text-xl text-inkBlack/70 mt-2">
+                    Edición limitada. Pieza única confeccionada en encaje francés con detalles artesanales.
+                  </p>
                 </div>
-                
-                {/* Precio destacado */}
+
                 <div className="text-4xl font-bold text-renderRed">$450.00</div>
-                
-                {/* Características con detalles de calidad */}
+
                 <ul className="space-y-2 text-inkBlack/80">
                   <li>• Encaje de algodón orgánico</li>
                   <li>• Corte asimétrico</li>
                   <li>• Hecho a mano en España</li>
                   <li>• Complementos: joyería de plata y calzado de piel</li>
                 </ul>
-                
-                {/* Botón comprar (sin lógica, solo UI) */}
+
                 <button className="bg-inkBlack text-paperWhite px-8 py-4 rounded-full text-lg font-medium hover:bg-renderRed transition-colors duration-300 w-full md:w-auto">
                   COMPRAR AHORA
                 </button>
-                
-                {/* Enlace secundario */}
+
                 <p className="text-sm text-inkBlack/50">
                   <a href="#guia-tallas" className="underline">Guía de tallas</a> · Envíos gratis
+                </p>
+
+                <p className="text-xs text-inkBlack/50">
+                  Nota: si no has subido <strong>luna-noire-model.jpg</strong> a <strong>public/assets/mockups/</strong>, verás el placeholder (pero no rompe nada).
                 </p>
               </div>
             </div>
@@ -756,31 +997,44 @@
         </section>
       );
 
-      // Archive Section
       const ArchiveSection = () => {
         const [activeLook, setActiveLook] = useState(null);
         return (
           <section id="archive" className="section-dark min-h-screen py-20 px-6 md:px-10" aria-label="Archive section">
             <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-16 reveal" style={{ '--d': '0ms' }}>
+              <div className="text-center mb-16 reveal" style={{ "--d": "0ms" }}>
                 <span className="font-ui text-xs font-medium tracking-[0.2em] uppercase text-gray-500 mb-4 block">Archivo</span>
                 <h2 className="font-display text-4xl md:text-6xl uppercase text-white">Looks</h2>
               </div>
+
               <div className="archive-grid">
                 {MODELS.slice(0, 12).map((model, index) => (
                   <button
                     key={model.id}
-                    className={`relative aspect-[3/4] rounded-lg overflow-hidden bg-gray-800 reveal focus:outline-none ${activeLook === model.id ? 'ring-2 ring-white' : ''}`}
-                    style={{ '--d': `${index * 50}ms` }}
+                    className={`relative aspect-[3/4] rounded-lg overflow-hidden bg-gray-800 reveal focus:outline-none ${
+                      activeLook === model.id ? "ring-2 ring-white" : ""
+                    }`}
+                    style={{ "--d": `${index * 50}ms` }}
                     onClick={() => setActiveLook(activeLook === model.id ? null : model.id)}
                     aria-label={`Ver ${model.alt}`}
                     aria-pressed={activeLook === model.id}
                   >
-                    <img src={model.src} alt={model.alt} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" decoding="async"
-                      onError={(e) => { e.target.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 400'%3E%3Crect fill='%23333' width='300' height='400'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%23666'%3E${model.id}%3C/text%3E%3C/svg%3E`; }} />
+                    <img
+                      src={model.src}
+                      alt={model.alt}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        e.target.src =
+                          "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 400'%3E%3Crect fill='%23333' width='300' height='400'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%23666'%3EERR%3C/text%3E%3C/svg%3E";
+                      }}
+                    />
                     {activeLook === model.id && (
                       <div className="absolute inset-0 bg-white/10 flex items-center justify-center">
-                        <span className="font-ui text-xs font-medium tracking-wider uppercase text-white bg-black/50 px-3 py-1 rounded">Seleccionado</span>
+                        <span className="font-ui text-xs font-medium tracking-wider uppercase text-white bg-black/50 px-3 py-1 rounded">
+                          Seleccionado
+                        </span>
                       </div>
                     )}
                   </button>
@@ -791,24 +1045,43 @@
         );
       };
 
-      // Search Section
       const SearchSection = () => {
-        const [query, setQuery] = useState('');
-        const handleSearch = (e) => { e.preventDefault(); alert(`Buscando: "${query}"`); };
+        const [query, setQuery] = useState("");
+        const handleSearch = (e) => {
+          e.preventDefault();
+          alert(`Buscando: "${query}"`);
+        };
         return (
           <section id="search" className="section-light min-h-[60vh] flex items-center justify-center py-20 px-6 md:px-10" aria-label="Search section">
-            <div className="max-w-2xl mx-auto w-full reveal" style={{ '--d': '0ms' }}>
+            <div className="max-w-2xl mx-auto w-full reveal" style={{ "--d": "0ms" }}>
               <div className="text-center mb-12">
                 <span className="font-ui text-xs font-medium tracking-[0.2em] uppercase text-gray-500 mb-4 block">Búsqueda</span>
                 <h2 className="font-display text-4xl md:text-6xl uppercase text-inkBlack">Buscar</h2>
               </div>
+
               <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4">
-                <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Buscar looks, modelos, estilos..." className="search-input flex-1" aria-label="Buscar looks" />
-                <button type="submit" className="cta-button cta-primary" style={{ minWidth: '120px' }}>Buscar</button>
+                <input
+                  type="text"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Buscar looks, modelos, estilos..."
+                  className="search-input flex-1"
+                  aria-label="Buscar looks"
+                />
+                <button type="submit" className="cta-button cta-primary" style={{ minWidth: "120px" }}>
+                  Buscar
+                </button>
               </form>
+
               <div className="mt-8 flex flex-wrap gap-2 justify-center">
-                {['Blazer', 'Vestido', 'Casual', 'Formal', 'Streetwear'].map((tag) => (
-                  <button key={tag} onClick={() => setQuery(tag)} className="px-4 py-2 text-sm font-ui text-gray-600 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400">{tag}</button>
+                {["Blazer", "Vestido", "Casual", "Formal", "Streetwear"].map((tag) => (
+                  <button
+                    key={tag}
+                    onClick={() => setQuery(tag)}
+                    className="px-4 py-2 text-sm font-ui text-gray-600 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400"
+                  >
+                    {tag}
+                  </button>
                 ))}
               </div>
             </div>
@@ -816,21 +1089,27 @@
         );
       };
 
-      // Footer
       const Footer = () => (
         <footer className="bg-inkBlack py-16 px-6 md:px-10">
           <div className="max-w-4xl mx-auto text-center">
             <h3 className="font-display text-3xl md:text-4xl text-white uppercase mb-6">RENDER</h3>
             <p className="font-ui text-sm text-gray-400 mb-8">Moda editorial contemporánea</p>
-            <a href="#" className="back-to-top on-dark inline-flex" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
-              <span>↑</span><span>Volver arriba</span>
+            <a
+              href="#"
+              className="back-to-top on-dark inline-flex"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              <span>↑</span>
+              <span>Volver arriba</span>
             </a>
             <p className="font-ui text-xs text-gray-600 mt-12">© 2024 RENDER. Todos los derechos reservados.</p>
           </div>
         </footer>
       );
 
-      // App
       const App = () => {
         useReveal();
         return (
@@ -849,7 +1128,7 @@
         );
       };
 
-      const root = ReactDOM.createRoot(document.getElementById('root'));
+      const root = ReactDOM.createRoot(document.getElementById("root"));
       root.render(<App />);
     </script>
   </body>
